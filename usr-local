@@ -1,0 +1,27 @@
+#!/sbin/runscript
+
+packages="/usr/package"
+root="/usr/local"
+
+aufs_options="xino=/mnt/ram/.aufs.xino2,br"
+
+depend(){
+    need localmount
+}
+
+start(){
+    cd "${packages}/@enabled"
+    for dir in *; do
+        aufs_options="${aufs_options}:$(realpath "${dir}")=ro"
+    done
+
+    ebegin "Mounting packages on /usr/local"
+    mount -t aufs -o "${aufs_options}" aufs "${root}"
+    eend $?
+}
+
+stop(){
+    ebegin "Unmounting packages on /usr/local"
+    umount /usr/local
+    eend $?
+}

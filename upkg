@@ -1,0 +1,56 @@
+#!/bin/bash
+
+packages="/usr/package"
+root="/usr/local"
+
+remount(){
+    mount -t aufs -o "remount,${1}" aufs "${root}"
+}
+
+
+rw(){
+    path="${packages}/${1}"
+    remount "del:${path}"
+    remount "prepend:${path}=rw"
+}
+
+ro(){
+    remount "mod:${packages}/${1}=ro"
+}
+
+enable(){
+    cd "${packages}/@enabled"
+    ln -s "../${1}" .
+
+    remount "prepend:${packages}/${1}=ro"
+}
+
+disable(){
+    cd "${packages}/@enabled"
+    rm "${1}"
+
+    remount "del:${packages}/${1}"
+}
+
+
+case "${1}" in
+    enable)
+	enable "${2}"
+	;;
+    disable)
+	disable "${2}"
+	;;
+    rw)
+	rw "${2}"
+	;;
+    ro)
+	ro "${2}"
+	;;
+    remount)
+	remount "${packages}/${2}"
+	;;
+    *)
+	echo "Wrong command!"
+	exit 1
+	;;
+esac
