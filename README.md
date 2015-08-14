@@ -33,7 +33,7 @@ To install a new package (e.g. `megatools`):
 ```bash
 mkdir /usr/package/megatools
 upkg enable megatools
-upkg rw megatools # Might not work currently
+upkg rw megatools
 
 # install the package
 make install # Assuming it installs everything into /usr/local
