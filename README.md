@@ -1,6 +1,6 @@
 aufs-pkg
 ========
-Scripts to manage `/usr/local` with aufs branches, to keep packages in their own directories
+Scripts to manage `/usr/local` with aufs branches, to keep packages in their own directories. Inspired by [A UnionFS-based package management system](http://www.linuxfromscratch.org/hints/downloads/files/pkg_unionfs.txt) from Linux From Scratch Hints Project.
 
 Installation
 ------------
