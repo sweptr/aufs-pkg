@@ -36,7 +36,7 @@ upkg enable megatools
 upkg rw megatools # Might not work currently
 
 # install the package
-sudo make install # Assuming it installs everything into /usr/local
+make install # Assuming it installs everything into /usr/local
 
 upkg ro megatools
 ```
