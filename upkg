@@ -18,6 +18,16 @@ ro(){
     remount "mod:${packages}/${1}=ro"
 }
 
+new(){
+    mkdir "${packages}/${1}"
+}
+
+install(){
+    new "${1}"
+    enable "${1}"
+    rw "${1}"
+}
+
 enable(){
     cd "${packages}/@enabled"
     ln -s "../${1}" .
@@ -32,8 +42,36 @@ disable(){
     remount "del:${packages}/${1}"
 }
 
+print_usage(){
+    cat <<EOF
+Usage: ${1} COMMAND PACKAGE
+
+COMMAND = new|install|enable|disable|rw|ro|remount
+  new:       Create a directory for package
+  install:   Prepare a package for installation;
+             same as running (in order): new, enable, rw
+  enable:    Mount package
+  disable:   Unmount package
+  rw:        Mount package read-write
+             (so that changes in ${root} change the package)
+  ro:        Make package read-only
+  remount:   Remount package
+
+Current settings:
+  root:			${root}
+  packages:		${packages}
+  enabled packages:	${packages}/@enabled
+EOF
+}
+
 
 case "${1}" in
+    new)
+	new "${2}"
+	;;
+    install)
+	install "${2}"
+	;;
     enable)
 	enable "${2}"
 	;;
@@ -50,7 +88,7 @@ case "${1}" in
 	remount "${packages}/${2}"
 	;;
     *)
-	echo "Wrong command!"
+	print_usage "${0}"
 	exit 1
 	;;
 esac

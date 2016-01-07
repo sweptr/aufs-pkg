@@ -31,9 +31,7 @@ Usage
 -----
 To install a new package (e.g. `megatools`):
 ```bash
-mkdir /usr/package/megatools
-upkg enable megatools
-upkg rw megatools
+upkg install megatools
 
 # install the package
 make install # Assuming it installs everything into /usr/local
