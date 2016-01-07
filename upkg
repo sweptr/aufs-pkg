@@ -54,7 +54,7 @@ COMMAND = new|install|enable|disable|rw|ro|remount
   disable:   Unmount package
   rw:        Mount package read-write
              (so that changes in ${root} change the package)
-  ro:        Make package read-only
+  ro:        Mount package read-only
   remount:   Remount package
 
 Current settings:
